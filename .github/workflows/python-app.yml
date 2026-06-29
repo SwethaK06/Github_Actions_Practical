@@ -29,3 +29,9 @@ jobs:
       - name: Run Python Script
         run: |
           python extractor.py --file document_for_parsing.pdf
+      - name: docker login 
+        run: echo "${{secrets.DOCKER_USERNAME}}" | docker login -u "${{secrets.DOCKER_PASSWORD}}" --password-;
+      -name: Build and push Docker image
+        run: |
+          docker build -t bk255/pdf-extractor:latest . 
+          docker push bk255/pdf-extractor:latest
